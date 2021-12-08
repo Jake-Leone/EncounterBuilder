@@ -1,0 +1,125 @@
+<RootDisplay>:
+
+    random_label: random_label
+    slider1: slider1
+    slider2: slider2
+    player_level: player_level
+    playerList: playerList
+    numMonsters: numMonsters
+    difficulty: difficulty
+
+
+
+
+    canvas.before:
+        Color:
+            rgba: 0,0,0,0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 0
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: 5
+            height: self.minimum_height
+            background_color: 1,1,1
+            spacing: 20
+            Label:
+                text: "[b][u]5e Encounter Builder[/u][/b]"
+                font_size: 50
+                color: 1, 0, 0 # normalized RGB values (divided by 255)
+                markup: True
+
+            Label:
+                text: "[b]Enter Player Levels[/b]"
+                markup: True
+                font_size: 24
+                color: 1, 1, 1 # normalized RGB values (divided by 255)
+                size_hint_y: 0.1
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 2
+                Label:
+                    id: playerList
+                    text: "[]"
+                    font_size: 18
+                    color: 1, 1, 1 # normalized RGB values (divided by 255)
+                BoxLayout:
+                    cols: 2
+                    spacing: 10
+                    orientation: 'horizontal'
+                    Spinner:
+                        id: player_level
+                        size: 50, 50
+                        text: "1"
+                        values: "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
+                        background_color: 1, 1, 1
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Button:
+                            text: "Add"
+                            font_size: 20
+                            size: 100, 50
+                            on_press: root.add_player()
+                        Button:
+                            text: "Remove"
+                            font_size: 20
+                            size: 100, 50
+                            on_press: root.remove_player()
+
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 25
+                Label:
+                    id: numMonsters
+                    text: "Number of Monsters: 1"
+                    font_size: 18
+                    color: 1, 1, 1
+                Slider:
+                    id: slider1
+                    min: 1
+                    max: 10
+                    step: 1
+                    orientation: 'horizontal'
+                    value_track: True
+                    value_track_color: 1,0,0,(self.value/self.max)
+                    on_touch_move: root.update_num_monsters()
+                    sensitivity: "handle"
+                    cursor_size: 45, 45
+                Label:
+                    id: difficulty
+                    text: "Difficulty: Easy"
+                    font_size: 18
+                    color: 1, 1, 1
+                Slider:
+                    id: slider2
+                    min: 0
+                    max: 3
+                    step: 1
+                    orientation: 'horizontal'
+                    value_track: True
+                    value_track_color: 1,0,0,(self.value/self.max)
+                    on_touch_move: root.update_difficulty()
+                    sensitivity: "handle"
+                    cursor_size: 45, 45
+
+        BoxLayout:
+            size_hint_y: 2
+            orientation: 'vertical'
+            Label:
+                id: random_label
+                text: "-"
+                font_size: 30
+                text_size: root.width, None
+                size: self.texture_size
+            Button:
+                text: "Build"
+                font_size: 32
+                size: 100, 50
+                on_press: root.call_encounter_builder()
